@@ -35,10 +35,12 @@ if top_config.function == 'GenData':
     # generate test data
     ibd.generate_noise_samples(code, top_config, net_config, train_config, top_config.BP_iter_nums_gen_data,
                                                   top_config.currently_trained_net_id, 'Test', noise_io, top_config.model_id)
+    print("Finished GenData!")
 elif top_config.function == 'Train':
     net_id = top_config.currently_trained_net_id
     conv_net = ConvNet.ConvNet(net_config, train_config, net_id)
     conv_net.train_network(top_config.model_id)
+    print("Finished Train!")
 elif top_config.function == 'Simulation':
     batch_size = 5000
     if top_config.analyze_res_noise:
@@ -47,3 +49,4 @@ elif top_config.function == 'Simulation':
 
     simutimes_range = np.array([np.ceil(1e7 / float(top_config.K_code * batch_size)) * batch_size, np.ceil(1e8 / float(top_config.K_code * batch_size)) * batch_size], np.int32)
     ibd.simulation_colored_noise(code, top_config, net_config, simutimes_range, 1000, batch_size)
+    print("Finished Simulation!")
