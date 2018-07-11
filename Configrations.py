@@ -46,6 +46,11 @@ class TopConfig:
         self.update_llr_with_epdf = False  # whether to update the initial LLR of the next BP decoding with the empirical distribution. Otherwise, the LLR is updated by
         # viewing the residual noise follows a Gaussian distritbution
 
+        # URLLC
+        self.urllc_intf = False
+        self.intf_prob = 1
+        self.intf_ratio = 1/12
+        self.intf_len = np.int(np.floor(self.N_code * self.intf_ratio))
 
     def parse_cmd_line(self, argv):
         if len(argv) == 1:
@@ -108,6 +113,9 @@ class TopConfig:
             elif argv[id]=='-SNR_GenData':
                 self.SNR_set_gen_data = np.fromstring(argv[id+1], dtype=np.float32, sep=' ')
                 print('SNR set for generating data is set to %s.' % np.array2string(self.SNR_set_gen_data))
+            elif argv[id] == '-URLLC_Intf':
+                self.urllc_intf = (argv[id + 1] == 'True')
+                print('URLLC Interference: %s' % str(self.urllc_intf))
             else:
                 print('Invalid parameter %s!' % argv[id])
                 exit(0)
