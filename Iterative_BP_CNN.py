@@ -118,6 +118,7 @@ def simulation_colored_noise(linear_code, top_config, net_config, simutimes_rang
     bp_str = np.array2string(bp_iter_num, separator='_', formatter={'int': lambda d: "%d" % d})
     bp_str = bp_str[1:(len(bp_str) - 1)]
     ber_file = format('%sBER(%d_%d)_BP(%s)' % (net_config.model_folder, N, K, bp_str))
+    ber_file = format('%s_eta(%.2f)_lam(%.2f)' % (ber_file, top_config.corr_para, top_config.normality_lambda))
 
     if top_config.corr_para != top_config.corr_para_simu:  # this means we are testing the model robustness to correlation level.
         ber_file = format('%s_SimuCorrPara%.2f' % (ber_file, top_config.corr_para_simu))
